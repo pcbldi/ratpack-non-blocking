@@ -3,3 +3,4 @@
 build/
 *.bat
 .gradle/
+*.iws
