@@ -30,6 +30,17 @@ ratpack {
       render serverConfig.baseDir.binding("sampleFile.txt").getFile()
     }
 
+    get("order-test"){
+      println "This is before blocking"
+      Blocking.get{
+        println "this is blocking thread"
+      }.then{
+          println "this is blocking thread then handler"
+      }
+      println "this is after blocking thread"
+      render "order-test"
+    }
+
     files { dir "public" }
   }
 }
