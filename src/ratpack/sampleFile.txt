@@ -1,0 +1,6 @@
+Ratpack is a set of Java libraries that facilitate fast, efficient, evolvable and well tested HTTP applications. It is built on the highly performant and efficient Netty event-driven networking engine.
+
+Ratpack is purely a runtime. There is no installable package and no coupled build tooling (e.g. Rails, Play, Grails). To build Ratpack applications, you can use any JVM build tool. The Ratpack project provides specific support for Gradle through plugins, but any could be used.
+
+Ratpack is published as a set of library JARs. The ratpack-core library is the only strictly required library. Others such as ratpack-groovy, ratpack-guice, ratpack-jackson, ratpack-test etc. are optional.
+
