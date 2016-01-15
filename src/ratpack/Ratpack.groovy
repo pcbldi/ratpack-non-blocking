@@ -6,10 +6,13 @@ import java.nio.file.Path
 
 import static ratpack.groovy.Groovy.groovyMarkupTemplate
 import static ratpack.groovy.Groovy.ratpack
+import static ratpack.jackson.Jackson.jsonNode
 
 ratpack {
     bindings {
         module MarkupTemplateModule
+        bindInstance(new BookService())
+
     }
 
     handlers {
@@ -30,26 +33,24 @@ ratpack {
             render serverConfig.baseDir.binding("sampleFile.txt").getFile()
         }
 
-        get("books") {
-            def booksP = Blocking.get {
-                BookUtils.allBooks
-            }
-            booksP.then {
+        get("books") {BookService bookService->
+            bookService.allBooks.then {
                 render json(it)
             }
         }
 
-        get("authors") {
-            def booksP = Blocking.get {
-                BookUtils.allBooks
-            }
-            booksP.map({ books ->
-                books.collect { it.author }
-            }).then {
+        get("authors") {BookService bookService->
+            bookService.allAuthors.then {
                 render json(it)
             }
         }
 
+        post("book"){BookService bookService->
+            def postBody=parse jsonNode()
+            postBody.then{bookService.save(new Book(name: it.name,author: it.author))}
+            response.status(200)
+            response.send()
+        }
         files { dir "public" }
     }
 }
