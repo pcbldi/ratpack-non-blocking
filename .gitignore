@@ -1,0 +1,5 @@
+*.ipr
+*.iml
+build/
+*.bat
+.gradle/
