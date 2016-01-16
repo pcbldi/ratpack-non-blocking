@@ -10,7 +10,6 @@ class BookService {
     }
 
     Promise<List<Book>> getAllBooks() {
-        println storage
         Promise.of { downstream -> downstream.success(storage) }
     }
 
